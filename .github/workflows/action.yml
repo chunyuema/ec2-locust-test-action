@@ -1,0 +1,24 @@
+name: startAndRunLocustLoadTestingOnEC2
+
+on:
+  workflow_dispatch:
+
+jobs:
+  start_ec2_instance:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Locust Test On EC2 Instance
+      - run: echo "Starting the EC2 instance..."
+      - run: aws ec2 start-instances --instance-ids ${{secrets.AWS_EC2_INSTANCE_ID }}
+      - run: echo "EC2 instance started, running locust tests..."
+      - run: aws ssm send-command \
+          --document-name "AWS-RunShellScript" \
+          --parameters 'commands=["locust -f load_test.py --headless -u 100 -t 1m --html result.html"]' \
+          --targets "Key=instanceids,Values=${{secrets.AWS_EC2_INSTANCE_ID }}" \
+          --comment "Running locust load testing"
+      - run: echo "Test finished, terminating the EC2 instance..."
+      - run: aws ec2 stop-instances --instance-ids ${{secrets.AWS_EC2_INSTANCE_ID }}
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
