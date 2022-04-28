@@ -15,9 +15,8 @@ jobs:
         run: aws ec2 start-instances --instance-ids ${{secrets.AWS_EC2_INSTANCE_ID }}
       - name: Run Locust Test
         run: aws ssm send-command \
+          --instance-ids ${{secrets.AWS_EC2_INSTANCE_ID }} \
           --document-name "AWS-RunShellScript" \
-          --parameters 'commands=["locust -f load_test.py --headless -u 100 -t 1m --html result.html"]' \
-          --targets "Key=instanceids,Values=${{secrets.AWS_EC2_INSTANCE_ID }}" \
-          --comment "Running locust load testing"
+          --parameters commands='["locust -f load_test.py --headless -u 2 -t 1m --html load_test_result.html"]' \
       - name: Terminate EC2 Instance
         run: aws ec2 stop-instances --instance-ids ${{secrets.AWS_EC2_INSTANCE_ID }}
