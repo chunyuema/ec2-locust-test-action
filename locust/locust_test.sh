@@ -3,12 +3,10 @@
 # get the instance id
 declare -r instance_id=$(curl http://169.254.169.254/latest/meta-data/instance-id)
 
-curl -s -X POST -H 'Content-type: application/json' --data '{"text":"Test Begins"}' ${slack_webhook_url}
-
 # send to slack
 send_to_slack() {
     message=$1
-    curl -s -X POST -H 'Content-type: application/json' --data '{"text":"$message"}' ${slack_webhook_url}
+    curl -s -X POST -H 'Content-type: application/json' --data '{"text":"$message"}' ${var.slack_webhook_url}
 }
 
 # prepare environment
@@ -27,6 +25,8 @@ install_dependencies(){
 #########################
 # calling all functions #
 #########################
+send_to_slack "Load Testig has began."
+
 if prepare_environment; then
   send_to_slack "Successfully prepared environment."
 else
@@ -39,6 +39,5 @@ else
   send_to_slack "Installing dependencies failed."
 fi
 
-# shutdown -h now
-# send_to_slack "Scheduled to be terminated."
-
+shutdown -h now
+send_to_slack "EC2 Instannce scheduled to be terminated."
