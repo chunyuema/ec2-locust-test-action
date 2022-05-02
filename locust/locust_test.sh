@@ -6,7 +6,7 @@ declare -r instance_id=$(curl http://169.254.169.254/latest/meta-data/instance-i
 # send to slack
 send_to_slack() {
     message=$1
-    curl -s -X POST -H 'Content-type: application/json' --data '{"text":"$message"}' ${var.slack_webhook_url}
+    curl -s -X POST -H 'Content-type: application/json' --data '{"text":"$message"}' ${slack_webhook_url}
 }
 
 # prepare environment
