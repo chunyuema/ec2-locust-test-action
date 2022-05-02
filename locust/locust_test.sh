@@ -13,7 +13,7 @@ send_to_slack() {
 prepare_environment() {
     apt update
     apt install -y python3-pip wget
-    apt install git
+    sudo apt install git
 }
 
 # install pip dependencies
@@ -24,8 +24,6 @@ install_dependencies(){
 
 # clone git repository
 clone_repo(){
-  send_to_slack "Start cloning the repository."
-  export HOME=/root
   git clone https://github.com/chunyuema/jina-locust-load-testing.git
 }
 
@@ -53,6 +51,8 @@ if install_dependencies; then
 else
   send_to_slack "Installing dependencies failed."
 fi
+
+send_to_slack "Start cloning the repository."
 
 if clone_repo; then
   send_to_slack "Successfully cloned the locust test repo."
