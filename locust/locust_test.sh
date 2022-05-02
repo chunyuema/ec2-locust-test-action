@@ -24,6 +24,7 @@ install_dependencies(){
 
 # clone git repository
 clone_repo(){
+  send_to_slack "Start cloning the repository."
   git clone https://github.com/chunyuema/jina-locust-load-testing.git
 }
 
