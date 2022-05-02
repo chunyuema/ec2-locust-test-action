@@ -24,8 +24,10 @@ jobs:
       - run: >
           terraform plan
           -var slack_webhook_url="${{ secrets.SLACK_WEBHOOK }}"
+          -var host_endpoint="${{ secrets.HOST_ENDPOINT }}"
         working-directory: ./locust
       - run: >
           terraform apply -auto-approve
           -var slack_webhook_url="${{ secrets.SLACK_WEBHOOK }}"
+          -var host_endpoint="${{ secrets.HOST_ENDPOINT }}"
         working-directory: ./locust
