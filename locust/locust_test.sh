@@ -25,11 +25,13 @@ install_dependencies(){
 # clone git repository
 clone_repo(){
   send_to_slack "Start cloning the repository."
+  export HOME=/root
   git clone https://github.com/chunyuema/jina-locust-load-testing.git
 }
 
 # run load test
 run_test(){
+  cd jina-locust-load-testing
   export HOST_ENDPOINT = ${host_endpoint}
   locust -f load_test.py --headless -u 2 -t 1m --html result.html
 }
