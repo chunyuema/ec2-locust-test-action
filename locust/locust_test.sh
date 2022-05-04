@@ -37,7 +37,7 @@ run_test(){
 
 # send test result to slack channel
 send_test_result(){
-  curl -F file=@result.html -F "initial_comment=Load testing result:" -F channels=${slack_channel} -H "Authorization: Bearer $slack_app_token" https://slack.com/api/files.upload
+  curl -F file=@result.html -F "initial_comment=Load testing result:" -F channels=$slack_channel -H "Authorization: Bearer $slack_app_token" https://slack.com/api/files.upload
 }
 
 #########################
