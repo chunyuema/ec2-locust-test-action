@@ -31,5 +31,7 @@ data "template_file" "userdata" {
   vars = {
     slack_webhook_url = "${var.slack_webhook_url}"
     host_endpoint     = "${var.host_endpoint}"
+    slack_app_token   = "${var.slack_app_token}"
+    slack_channel     = "${var.slack_channel}"
   }
 }
