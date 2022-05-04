@@ -63,3 +63,8 @@ variable "enabled_searchers_compare" {
   default     = false
   description = "Enable searchers compare test or not."
 }
+
+variable "host_endpoint" {
+  default     = "https://1df7973034.wolf.jina.ai"
+  description = "Default URL For Performing Load Testing"
+}
