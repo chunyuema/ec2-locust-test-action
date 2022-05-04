@@ -65,6 +65,16 @@ variable "enabled_searchers_compare" {
 }
 
 variable "host_endpoint" {
-  default     = "https://1df7973034.wolf.jina.ai"
+  default     = "https://dummyurl.wolf.jina.ai"
   description = "Default URL For Performing Load Testing"
+}
+
+variable "slack_app_token" {
+  default     = "slack app token"
+  description = "Default Slack App Token"
+}
+
+variable "slack_channel" {
+  default     = "slack channel"
+  description = "Default Slack Channel"
 }
