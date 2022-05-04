@@ -4,13 +4,18 @@ variable "region" {
 }
 
 variable "name" {
-  default     = "wolf_load_testing_dev"
+  default     = "load_test_dev_wolf"
   description = "Name to be used with components."
 }
 
 variable "auto_terminate_instance" {
   default     = true
   description = "Pass true enabling terminate instance after benchmarking."
+}
+
+variable "s3_bucket_acl" {
+  default     = "private"
+  description = "The canned ACL to apply."
 }
 
 variable "ami" {
