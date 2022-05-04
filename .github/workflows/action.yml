@@ -21,6 +21,7 @@ jobs:
       - run: >
           terraform init
         working-directory: ./locust
+
       - run: >
           terraform plan
           -var slack_webhook_url="${{ secrets.SLACK_WEBHOOK }}"
@@ -28,13 +29,14 @@ jobs:
           -var slack_channel="${{ secrets.SLACK_CHANNEL }}"
           -var slack_app_token="${{ secrets.SLACK_APP_TOKEN }}"
         working-directory: ./locust
-      - run: >
-          terraform destroy
-        working-directory: ./locust
+
       - run: >
           terraform apply -auto-approve
           -var slack_webhook_url="${{ secrets.SLACK_WEBHOOK }}"
           -var host_endpoint="${{ secrets.HOST_ENDPOINT }}"
           -var slack_channel="${{ secrets.SLACK_CHANNEL }}"
           -var slack_app_token="${{ secrets.SLACK_APP_TOKEN }}"
+        working-directory: ./locust
+
+      - run: terraform state list | grep aws_spot_instance_request.this | xargs terraform state rm
         working-directory: ./locust

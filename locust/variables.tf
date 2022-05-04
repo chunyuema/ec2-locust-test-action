@@ -4,7 +4,7 @@ variable "region" {
 }
 
 variable "name" {
-  default     = "wolf_load_testing"
+  default     = "wolf_load_testing_dev"
   description = "Name to be used with components."
 }
 
