@@ -70,5 +70,5 @@ else
   send_to_slack "Unable to send test result."
 fi
 
-shutdown -h now
-send_to_slack "EC2 Instannce scheduled to be terminated."
+# shutdown -h now
+# send_to_slack "EC2 Instannce scheduled to be terminated."
