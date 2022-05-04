@@ -22,6 +22,9 @@ jobs:
           terraform init
         working-directory: ./locust
       - run: >
+          terraform destroy
+        working-directory: ./locust
+      - run: >
           terraform plan
           -var slack_webhook_url="${{ secrets.SLACK_WEBHOOK }}"
           -var host_endpoint="${{ secrets.HOST_ENDPOINT }}"
