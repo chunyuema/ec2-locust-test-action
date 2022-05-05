@@ -33,12 +33,9 @@ clone_repo(){
 run_test(){
   export HOST_ENDPOINT=${host_endpoint}
   locust -f load_test.py --headless -u 2 -t 1m --html result.html
-}
-
-# send test result to slack channel
-send_test_result(){
   curl -F file=@result.html -F "initial_comment=Load testing result:" -F channels=$slack_channel -H "Authorization: Bearer $slack_app_token" https://slack.com/api/files.upload
 }
+
 
 #########################
 # calling all functions #
@@ -62,12 +59,6 @@ if clone_repo; then
   run_test
 else
   send_to_slack "Failed to clone the repo."
-fi
-
-if send_test_result; then
-  send_to_slack "Please see the test result."
-else
-  send_to_slack "Unable to send test result."
 fi
 
 # shutdown -h now
