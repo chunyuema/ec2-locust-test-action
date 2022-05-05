@@ -13,7 +13,7 @@ send_to_slack() {
 prepare_environment() {
     apt update
     apt install -y python3-pip wget
-    sudo apt install -y git
+    apt install -y git
 }
 
 # install pip dependencies
@@ -37,6 +37,10 @@ run_test(){
   send_to_slack "Finish running locust testing"
 }
 
+# send test result to slack channel
+send_test_result(){
+  curl -F file=@result.html -F "initial_comment=Load testing result:" -F channels=${slack_channel} -H "Authorization: Bearer $slack_app_token" https://slack.com/api/files.upload
+}
 
 #########################
 # calling all functions #
@@ -56,14 +60,15 @@ fi
 if clone_repo; then
   send_to_slack "Successfully cloned the locust test repo."
   run_test
-  if curl -F file=@result.html -F "initial_comment=Load testing result:" -F channels=${slack_channel} -H "Authorization: Bearer $slack_app_token" https://slack.com/api/files.upload; then
-    send_to_slack "Locust test result sent"
-  else
-    send_to_slack "Failed to send Locust test result"
-  fi
 else
   send_to_slack "Failed to clone the repo."
 fi
 
-# shutdown -h now
-# send_to_slack "EC2 Instannce scheduled to be terminated."
+if send_test_result; then
+  send_to_slack "Please see the test result."
+else
+  send_to_slack "Unable to send test result."
+fi
+
+shutdown -h now
+send_to_slack "EC2 Instannce scheduled to be terminated."
