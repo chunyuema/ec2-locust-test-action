@@ -34,7 +34,7 @@ run_test(){
   send_to_slack "Start running locust testing"
   export HOST_ENDPOINT=${host_endpoint}
   locust -f load_test.py --headless -u 2 -t 1m --html result.html
-  status = $(curl -F file=@result.html -F "initial_comment=Load testing result:" -F channels=${slack_channel} -H "Authorization: Bearer $slack_app_token" https://slack.com/api/files.upload)
+  curl -F file=@result.html -F 'initial_comment=Load testing result:' -F channels=${slack_channel} -H 'Authorization: Bearer $slack_app_token' https://slack.com/api/files.upload
   send_to_slack "Locust test result sent $status"
 }
 
