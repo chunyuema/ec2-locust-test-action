@@ -56,8 +56,11 @@ fi
 if clone_repo; then
   send_to_slack "Successfully cloned the locust test repo."
   run_test
-  curl -F file=@result.html -F "initial_comment=Load testing result:" -F channels=${slack_channel} -H "Authorization: Bearer $slack_app_token" https://slack.com/api/files.upload
-  send_to_slack "Locust test result sent $status"
+  if curl -F file=@result.html -F "initial_comment=Load testing result:" -F channels=${slack_channel} -H "Authorization: Bearer $slack_app_token" https://slack.com/api/files.upload; then
+    send_to_slack "Locust test result sent"
+  else
+    send_to_slack "Failed to send Locust test result"
+  fi
 else
   send_to_slack "Failed to clone the repo."
 fi
