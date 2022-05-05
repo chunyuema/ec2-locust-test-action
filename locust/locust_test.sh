@@ -34,6 +34,7 @@ run_test(){
   send_to_slack "Start running locust testing"
   export HOST_ENDPOINT=${host_endpoint}
   locust -f load_test.py --headless -u 2 -t 1m --html result.html
+  send_to_slack "Finish running locust testing"
 }
 
 
