@@ -31,17 +31,16 @@ clone_repo(){
 
 # run load test
 run_test(){
+  send_to_slack "Start running locust testing"
   export HOST_ENDPOINT=${host_endpoint}
   locust -f load_test.py --headless -u 2 -t 1m --html result.html
-  curl -F file=@result.html -F "initial_comment=Load testing result:" -F channels=$slack_channel -H "Authorization: Bearer $slack_app_token" https://slack.com/api/files.upload
+  curl -F file=@result.html -F "initial_comment=Load testing result:" -F channels=${slack_channel} -H "Authorization: Bearer $slack_app_token" https://slack.com/api/files.upload
 }
 
 
 #########################
 # calling all functions #
 #########################
-send_to_slack "Load Testing has began."
-
 if prepare_environment; then
   send_to_slack "Successfully prepared environment."
 else
@@ -61,5 +60,5 @@ else
   send_to_slack "Failed to clone the repo."
 fi
 
-# shutdown -h now
-# send_to_slack "EC2 Instannce scheduled to be terminated."
+shutdown -h now
+send_to_slack "EC2 Instannce scheduled to be terminated."
