@@ -35,7 +35,8 @@ run_test(){
   export HOST_ENDPOINT=${host_endpoint}
   echo "host endpoint is: ${host_endpoint}" >> log.txt
   ulimit -Sn 10001
-  locust -f load_test.py --headless -u 1 -t 1m --html result.html
+  # locust -f load_test.py --headless -u 1 -t 1m --html result.html
+  locust -f load_test_dummy.py --headless -u 1 -t 1m --html result.html --host https://cat-fact.herokuapp.com
   send_to_slack "Finish running locust testing"
 }
 
