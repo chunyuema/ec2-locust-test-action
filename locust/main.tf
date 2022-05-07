@@ -45,7 +45,7 @@ resource "aws_iam_instance_profile" "this" {
 }
 
 resource "aws_spot_instance_request" "this" {
-  ami                    = var.ami != null ? var.ami : data.aws_ami.ubuntu.id
+  ami                    = var.ami != null ? var.ami : data.aws_ami.amazon-2.id
   instance_type          = var.instance_type
   key_name               = var.key_name != "null" ? var.key_name : null
   subnet_id              = data.aws_subnet.default.id
@@ -68,3 +68,6 @@ resource "aws_spot_instance_request" "this" {
     Name = "Wolf Load Test Dev"
   }
 }
+
+
+# ami                    = var.ami != null ? var.ami : data.aws_ami.ubuntu.id

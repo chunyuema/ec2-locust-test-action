@@ -11,6 +11,16 @@ data "aws_subnet" "default" {
   availability_zone = "us-east-1a"
 }
 
+data "aws_ami" "amazon-2" {
+  most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["amzn2-ami-hvm-*-x86_64-ebs"]
+  }
+  owners = ["amazon"]
+}
+
 data "aws_ami" "ubuntu" {
   most_recent = true
   owners      = ["099720109477"]

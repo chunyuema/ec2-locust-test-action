@@ -11,13 +11,12 @@ send_to_slack() {
 
 # prepare environment
 prepare_environment() {
-    apt update
-    # sudo apt-get update
+    yum update
     # apt install -y python3-pip wget
-    sudo apt install -y python3.7
-    sudo apt install -y python3-pip
-    sudo apt install -y git
-
+    # sudo apt install -y python3.7
+    sudo yum -y install python-pip
+    # sudo apt install -y python3-pip
+    sudo yum -y install git
 }
 
 # install pip dependencies
