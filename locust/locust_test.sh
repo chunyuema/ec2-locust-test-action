@@ -11,18 +11,24 @@ send_to_slack() {
 
 # prepare environment
 prepare_environment() {
-    yum update
-    # apt install -y python3-pip wget
-    # sudo apt install -y python3.7
-    sudo yum -y install python-pip
-    # sudo apt install -y python3-pip
-    sudo yum -y install git
+  sudo add-apt-repository -y ppa:deadsnakes/ppa
+  sudo apt-get update -y
+  sudo apt-get install -y python3.7
+  python3.7 -m pip install pip
+    # yum update
+    # # apt install -y python3-pip wget
+    # # sudo apt install -y python3.7
+    # sudo yum -y install python-pip
+    # # sudo apt install -y python3-pip
+    # sudo yum -y install git
 }
 
 # install pip dependencies
 install_dependencies(){
-    pip install jina
-    pip3 install locust
+  python3.7 -m pip install jina
+  python3.7 -m pip install locust
+    # pip3 install jina
+    # pip3 install locust
 }
 
 # clone git repository
