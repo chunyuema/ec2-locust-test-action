@@ -17,6 +17,7 @@ prepare_environment() {
 
 # install pip dependencies
 install_dependencies(){
+  pip3 install requests
   pip3 install jina
   pip3 install locust
 }
