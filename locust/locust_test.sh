@@ -11,24 +11,14 @@ send_to_slack() {
 
 # prepare environment
 prepare_environment() {
-  sudo add-apt-repository -y ppa:deadsnakes/ppa
-  sudo apt-get update -y
-  sudo apt-get install -y python3.7
-  python3.7 -m pip install pip
-    # yum update
-    # # apt install -y python3-pip wget
-    # # sudo apt install -y python3.7
-    # sudo yum -y install python-pip
-    # # sudo apt install -y python3-pip
-    # sudo yum -y install git
+  apt update
+  apt install -y python3-pip wget
 }
 
 # install pip dependencies
 install_dependencies(){
-  python3.7 -m pip install jina
-  python3.7 -m pip install locust
-    # pip3 install jina
-    # pip3 install locust
+  pip3 install jina
+  pip3 install locust
 }
 
 # clone git repository
@@ -44,8 +34,8 @@ run_test(){
   export HOST_ENDPOINT=${host_endpoint}
   echo "host endpoint is: ${host_endpoint}" >> log.txt
   ulimit -Sn 10001
-  # locust -f load_test.py --headless -u 1 -t 1m --html result.html
-  locust -f load_test_dummy.py --headless -u 1 -t 1m --html result.html --host https://cat-fact.herokuapp.com
+  locust -f load_test.py --headless -u 1 -t 1m --html result.html
+  # locust -f load_test_dummy.py --headless -u 1 -t 1m --html result.html --host https://cat-fact.herokuapp.com
   send_to_slack "Finish running locust testing"
 }
 
